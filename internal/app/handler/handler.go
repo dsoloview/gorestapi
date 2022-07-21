@@ -1,31 +1,21 @@
 package handler
 
 import (
-	"fmt"
-	"github.com/dsoloview/gorestapi/internal/app/service"
+	"github.com/dsoloview/gorestapi/internal/app/controller"
 	"github.com/gorilla/mux"
-	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 type Handler struct {
-	services *service.Service
+	controllers *controller.Controller
 }
 
-func NewHandler(services *service.Service) *Handler {
-	return &Handler{services: services}
+func NewHandler(controllers *controller.Controller) *Handler {
+	return &Handler{controllers: controllers}
 }
 
 func (h *Handler) Handle() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/hello", h.HomeHandler)
+	router.HandleFunc("/hello", h.controllers.Home.Index)
 
 	return router
-}
-
-func (h *Handler) HomeHandler(w http.ResponseWriter, r *http.Request) {
-	_, err := fmt.Fprintf(w, "Category: %v\n", 2)
-	if err != nil {
-		logrus.Debug(err)
-	}
 }

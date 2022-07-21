@@ -1,8 +1,15 @@
 package service
 
+import "github.com/dsoloview/gorestapi/internal/app/repository"
+
 type Service struct {
+	Home
 }
 
-func NewService() *Service {
-	return &Service{}
+type Home interface {
+	Hello() string
+}
+
+func NewService(repositories *repository.Repository) *Service {
+	return &Service{Home: NewHomeService()}
 }

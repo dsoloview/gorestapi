@@ -1,7 +1,9 @@
 package main
 
 import (
+	"github.com/dsoloview/gorestapi/internal/app/controller"
 	"github.com/dsoloview/gorestapi/internal/app/handler"
+	"github.com/dsoloview/gorestapi/internal/app/repository"
 	"github.com/dsoloview/gorestapi/internal/app/server"
 	"github.com/dsoloview/gorestapi/internal/app/service"
 	"github.com/joho/godotenv"
@@ -18,8 +20,10 @@ func main() {
 		logrus.Fatalf("error loading env %s", err.Error())
 	}
 
-	services := service.NewService()
-	handlers := handler.NewHandler(services)
+	repositories := repository.NewRepository()
+	services := service.NewService(repositories)
+	controllers := controller.NewController(services)
+	handlers := handler.NewHandler(controllers)
 
 	serv := new(server.Server)
 	if err := serv.Run(viper.GetString("port"), handlers.Handle()); err != nil {
