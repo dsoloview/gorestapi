@@ -12,6 +12,6 @@ type Controller struct {
 func NewController(service *service.Service) *Controller {
 	return &Controller{
 		service:        service,
-		UserController: NewHomeController(service.User),
+		UserController: NewUserController(service.User),
 	}
 }

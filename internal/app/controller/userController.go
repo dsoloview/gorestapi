@@ -10,7 +10,7 @@ type UserController struct {
 	userService service.User
 }
 
-func NewHomeController(userService service.User) *UserController {
+func NewUserController(userService service.User) *UserController {
 	return &UserController{userService: userService}
 }
 
