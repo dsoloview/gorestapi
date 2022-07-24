@@ -1,15 +1,18 @@
 package service
 
-import "github.com/dsoloview/gorestapi/internal/app/repository"
+import (
+	"github.com/dsoloview/gorestapi/internal/app/model"
+	"github.com/dsoloview/gorestapi/internal/app/repository"
+)
 
 type Service struct {
-	Home
+	User
 }
 
-type Home interface {
-	Hello() string
+type User interface {
+	CreateUser(user *model.User) (*model.User, error)
 }
 
 func NewService(repositories *repository.Repository) *Service {
-	return &Service{Home: NewHomeService()}
+	return &Service{User: NewUserService(repositories.User)}
 }

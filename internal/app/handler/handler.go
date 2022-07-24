@@ -15,7 +15,7 @@ func NewHandler(controllers *controller.Controller) *Handler {
 
 func (h *Handler) Handle() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/hello", h.controllers.Home.Index)
+	router.HandleFunc("/register", h.controllers.UserController.CreateUser).Methods("POST")
 
 	return router
 }
