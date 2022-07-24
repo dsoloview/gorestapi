@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/dsoloview/gorestapi/internal/app/service"
 	"net/http"
 )
@@ -15,5 +14,5 @@ func NewUserController(userService service.User) *UserController {
 }
 
 func (h *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r)
+
 }

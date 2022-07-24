@@ -7,15 +7,18 @@ import (
 
 type Handler struct {
 	controllers *controller.Controller
+	router      *mux.Router
 }
 
 func NewHandler(controllers *controller.Controller) *Handler {
-	return &Handler{controllers: controllers}
+	return &Handler{
+		controllers: controllers,
+		router:      mux.NewRouter(),
+	}
 }
 
 func (h *Handler) Handle() *mux.Router {
-	router := mux.NewRouter()
-	router.HandleFunc("/register", h.controllers.UserController.CreateUser).Methods("POST")
+	h.router.HandleFunc("/register", h.controllers.UserController.CreateUser).Methods("POST")
 
-	return router
+	return h.router
 }
