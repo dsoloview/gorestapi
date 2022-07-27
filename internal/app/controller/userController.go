@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"github.com/dsoloview/gorestapi/internal/app/model"
+	"github.com/dsoloview/gorestapi/internal/app/response"
 	"github.com/dsoloview/gorestapi/internal/app/service"
 	"net/http"
 )
@@ -19,17 +20,14 @@ func (h *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var user model.User
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
-		SendErrorResponse(w, err.Error())
+		sendErrorResponse(w, err.Error())
 		return
 	}
 	createdUser, err := h.userService.CreateUser(&user)
 	if err != nil {
-		SendErrorResponse(w, err.Error())
+		sendErrorResponse(w, err.Error())
 		return
 	}
 
-	SendSuccessResponse(w, map[string]interface{}{
-		"id":    createdUser.ID,
-		"email": createdUser.Email,
-	})
+	sendSuccessResponse(w, response.NewCreateUserResponse(createdUser))
 }
