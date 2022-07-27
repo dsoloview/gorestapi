@@ -19,7 +19,7 @@ func (s *UserService) CreateUser(user *model.User) (*model.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	user.EncryptedPassword = encrypted
+	user.Password = encrypted
 	createUser, err := s.repository.CreateUser(user)
 	if err != nil {
 		return nil, err

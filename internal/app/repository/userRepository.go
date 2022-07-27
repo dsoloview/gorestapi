@@ -14,7 +14,7 @@ func NewUserRepository(db *sqlx.DB) *UserRepository {
 }
 
 func (r *UserRepository) CreateUser(user *model.User) (*model.User, error) {
-	if err := r.db.DB.QueryRow("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id", user.Email, user.EncryptedPassword).Scan(&user.ID); err != nil {
+	if err := r.db.DB.QueryRow("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id", user.Email, user.Password).Scan(&user.ID); err != nil {
 		return nil, err
 	}
 
@@ -23,7 +23,7 @@ func (r *UserRepository) CreateUser(user *model.User) (*model.User, error) {
 
 func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
 	user := &model.User{}
-	if err := r.db.DB.QueryRow("SELECT id, email, password FROM users WHERE email = $1", email).Scan(&user.ID, &user.Email, &user.EncryptedPassword); err != nil {
+	if err := r.db.DB.QueryRow("SELECT id, email, password FROM users WHERE email = $1", email).Scan(&user.ID, &user.Email, &user.Password); err != nil {
 		return nil, err
 	}
 

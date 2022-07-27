@@ -14,7 +14,7 @@ func EncryptPassword(password string) (string, error) {
 }
 
 func ComparePasswords(password string, user *model.User) error {
-	err := bcrypt.CompareHashAndPassword([]byte(user.EncryptedPassword), []byte(password))
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
 		return err
 	}
