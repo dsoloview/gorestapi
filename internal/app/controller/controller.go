@@ -5,6 +5,7 @@ import (
 	"github.com/dsoloview/gorestapi/internal/app/response"
 	"github.com/dsoloview/gorestapi/internal/app/service"
 	"net/http"
+	"net/url"
 )
 
 type Controller struct {
@@ -38,6 +39,18 @@ func sendErrorResponse(w http.ResponseWriter, error string) {
 		sendErrorResponse(w, err.Error())
 	}
 
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusNotImplemented)
+	w.Write(jsonResponse)
+}
+
+func sendValidationError(w http.ResponseWriter, error url.Values) {
+
+	result := map[string]interface{}{"validationError": error}
+	jsonResponse, err := json.Marshal(result)
+	if err != nil {
+		sendErrorResponse(w, err.Error())
+	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNotImplemented)
 	w.Write(jsonResponse)
