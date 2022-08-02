@@ -2,10 +2,12 @@ package controller
 
 import (
 	"encoding/json"
+	"errors"
+	"github.com/dsoloview/gorestapi/internal/app/http/response"
+	"github.com/dsoloview/gorestapi/internal/app/http/validator"
 	"github.com/dsoloview/gorestapi/internal/app/model"
-	"github.com/dsoloview/gorestapi/internal/app/response"
 	"github.com/dsoloview/gorestapi/internal/app/service"
-	"github.com/dsoloview/gorestapi/internal/app/validation"
+	"io"
 	"net/http"
 )
 
@@ -22,11 +24,15 @@ func (h *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
-		sendErrorResponse(w, err.Error())
+		if err == io.EOF {
+			sendErrorResponse(w, errors.New("body is empty").Error())
+		} else {
+			sendErrorResponse(w, err.Error())
+		}
 		return
 	}
 
-	validationError := validation.NewUserValidation(user).Validate()
+	validationError := validator.NewUserValidator(&user).Validate()
 	if validationError != nil {
 		sendValidationError(w, validationError)
 		return

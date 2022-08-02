@@ -2,7 +2,7 @@ package controller
 
 import (
 	"encoding/json"
-	"github.com/dsoloview/gorestapi/internal/app/response"
+	"github.com/dsoloview/gorestapi/internal/app/http/response"
 	"github.com/dsoloview/gorestapi/internal/app/service"
 	"net/http"
 	"net/url"

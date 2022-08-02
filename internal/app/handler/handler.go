@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/dsoloview/gorestapi/internal/app/controller"
+	"github.com/dsoloview/gorestapi/internal/app/http/controller"
 	"github.com/gorilla/mux"
 )
 

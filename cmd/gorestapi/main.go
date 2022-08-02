@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/dsoloview/gorestapi/internal/app/controller"
 	"github.com/dsoloview/gorestapi/internal/app/handler"
+	"github.com/dsoloview/gorestapi/internal/app/http/controller"
 	"github.com/dsoloview/gorestapi/internal/app/repository"
 	"github.com/dsoloview/gorestapi/internal/app/service"
 	"github.com/dsoloview/gorestapi/internal/database"

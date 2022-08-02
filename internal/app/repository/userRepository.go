@@ -22,11 +22,11 @@ func (r *UserRepository) CreateUser(user *model.User) (*model.User, error) {
 }
 
 func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
-	user := &model.User{}
+	var user model.User
 	if err := r.db.DB.QueryRow("SELECT id, email, password FROM users WHERE email = $1", email).Scan(&user.ID, &user.Email, &user.Password); err != nil {
 		return nil, err
 	}
 
-	return user, nil
+	return &user, nil
 
 }
